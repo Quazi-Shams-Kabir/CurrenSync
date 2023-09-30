@@ -1,0 +1,101 @@
+<%- include("partials/header.ejs") %>
+
+<!-- country code get from  https://country.is/ api,-->
+
+<% const countryCode = country%>
+<div class="country"><%= countryCode %></div>
+
+<form action="/" method="post">
+  <div class="choosing">
+    <div class="box">
+      <input type="number" id="ammount" name="ammount" class="dropdown" value="<%=value%>" step="any"/>
+      <label for="ammount">Ammount</label>
+    </div>
+
+    <!-- adding all the currency available in https://www.exchangerate-api.com/ api from the array-->
+    <div class="box">
+      <select name="from" id="from" class="dropdown" >
+        <% for (let i = 0; i < currencies.length; i++) { %>
+          <%const element = currencies[i];%>
+          <option value="<%=element%>"> 
+          <%=element%>
+        </option>   
+        <% } %>
+      </select>
+      <label for="from">From</label>
+    </div>
+
+    <!-- checking the country code and
+    selecting the user's country's currency(country get from above) as default-->
+    <div class="box">
+      <select name="to" id="to" class="dropdown">
+        <% for (let i = 0; i < currencies.length; i++) { %>
+          <%const element = currencies[i];%>
+          <% if (element.slice(0,2)===countryCode) { %>
+            <option value="<%=element%>"selected> 
+          <%=element%>
+        </option
+          <% } else { %>
+          <option value="<%=element%>"> 
+          <%=element%>
+        </option> 
+        <% } %>  
+        <% } %>
+      </select>
+      <label for="to">To</label>
+    </div>
+
+    <!-- later I'll add another button to get all the returned pairs, which will hit https://open.er-api.com/v6/latest/+req.body.from this api -->
+  <div class="button_container">
+    <button
+      class="btn btn-primary d-inline-flex align-items-center"
+      type="submit"
+    >
+      Convert &nbsp;
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        class="bi bi-arrow-right-short"
+        viewBox="0 0 16 16"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+        />
+      </svg>
+    </button>
+  </div>
+
+  </div>
+</form>
+
+<!-- if there is no data array,
+which will be available only after user convert something,
+to keep the layout safe, adding an empty div with text without data-->
+<!-- after it's available, adding the datas accordingly -->
+<% if (locals.data) { %>
+<div class="result">
+  <div class="updates">
+    <div class="last_update">Updated On : <%=data[0]%></div>
+    <div class="next_update">Next Update : <%=data[1]%></div>
+  </div>
+
+  <!-- 1st line is conversion rate of the currency to with the currency user trying to convert -->
+  <!-- 2nd line is the result -->
+  <div class="updates converted">
+    <div>1 <%=data[2]%> = <%=data[5]%> <%=data[3]%></div>
+    <div><%=value%> <%=data[2]%> = <%=data[6]%> <%=data[3]%></div>
+  </div>
+</div>
+<% } else { %>
+    <div class="updates">
+      <div class="last_update">Updated On : </div>
+      <div class="next_update">Next Update : </div>
+    </div>
+<% } %>
+
+<%- include("partials/footer.ejs") %>
+
+<!-- will change the select and option menu later with list to make a better looking custom dropdown -->
