@@ -1,5 +1,7 @@
 # Currency Converted: CuurenSync
 
+Checkout:<a href="https://currensync.onrender.com/"> CuurenSync</a>
+
 - project for API
 
 - functionalities : 
@@ -16,3 +18,5 @@
 - node index.js to run on default port
 - default port is 3000
 - use own api key if want to hit the api key route
+
+P.S. Render's server is in Singapore, so default currency will be SG (till I buy a domain)
