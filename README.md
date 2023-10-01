@@ -1,6 +1,6 @@
-# Currency Converted: CuurenSync
+# Currency Converted: CurrenSync
 
-Checkout:<a href="https://currensync.onrender.com/"> CuurenSync</a>
+Checkout:<a href="https://currensync.onrender.com/"> CurrenSync</a>
 
 - project for API
 
